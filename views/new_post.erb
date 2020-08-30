@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>KD's Page</title> <!-- ここは各自の好きなように！ -->
+</head>
+<body>
+
+  <form action="/posts" method="post" enctype="multipart/form-data">
+      <div>
+          <label for="title">タイトル: </label>
+          <input type="text" name="title">
+      </div>
+      <div>
+          <label for="content">コンテンツ: </label>
+          <textarea name="content" cols=50 rows=10></textarea>
+      </div>
+      <!-- 追記 -->
+      <div>
+          <label for="img">画像: </label>
+          <input type="file" name="img">
+      </div>
+      <!-- ここまで -->
+      <input type="submit" value="投稿">
+  </form>
+
+</body>
+</html>
