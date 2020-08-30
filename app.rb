@@ -10,3 +10,8 @@ require 'sinatra/reloader'
 get "/hello" do
   return erb :html
 end
+
+get "/mypage/:name" do
+  # @menu = params[:menu].split("と") # コメントアウト
+  return erb :mypage
+end
