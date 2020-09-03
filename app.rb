@@ -1,12 +1,25 @@
 
 require 'sinatra'
 require 'sinatra/reloader'
-require 'fileutils'
+# require 'fileutils'
 require 'sinatra/cookies'
+
+
+require 'pg'
+
+client = PG::connect(
+  :host => "localhost",
+  :user => ENV.fetch("USER", "shogo_sakihama"), :password => '',
+  :dbname => "postgres")
+
 
 enable :sessions
 
 
+
+
+
+  
 # get "/hello" do
 #   puts "<h1>こんにちは！</h1>"
 # end
