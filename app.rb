@@ -18,11 +18,24 @@ enable :sessions
 
 
 
+get '/signup' do
+  return erb :signup
+end
 
-  
-# get "/hello" do
-#   puts "<h1>こんにちは！</h1>"
-# end
+post '/signup' do
+  name = params[:name]
+  email = params[:email]
+  password = params[:password]
+  client.exec_params("INSERT INTO users (name, email, password) VALUES ($1, $2, $3)", [name, email, password])
+  user = client.exec_params("SELECT * from users WHERE email = $1 AND password = $2", [email, password]).to_a.first
+  session[:user] = user
+  return redirect '/mypage'
+end
+
+get "/mypage" do
+  @name = session[:user]['name'] # 書き換える
+  return erb :mypage
+end
 
 
 
@@ -58,14 +71,21 @@ end
 # cookkie
 
 
-get "/signin" do
+
+get '/signin' do
   return erb :signin
 end
 
-post "/signin" do
-  session[:user]
-  session[:user] = params[:name]
-  redirect '/mypage'
+post '/signin' do
+  email = params[:email]
+  password = params[:password]
+  user = client.exec_params("SELECT * FROM users WHERE email = '#{email}' AND password = '#{password}'").to_a.first
+  if user.nil?
+    return erb :signin
+  else
+    session[:user] = user
+    return redirect '/mypage'
+  end
 end
 
 get "/mypage" do
